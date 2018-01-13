@@ -1,0 +1,38 @@
+# Flat-Array-Code-JS
+
+var a=[1,2,"Ankit",{name:"Mittal",age:24,arr:[4,5,6]},["a","b",10]];
+var b=[];
+var THIS = this;
+parseArrayflat = function(val){
+if(val.constructor.name=="Array"){
+val.forEach(function(ele,i){
+        if((ele instanceof Object) || (ele instanceof Array)){
+            parseArrayflat(ele);
+        }
+else {
+b.push(ele);
+    }
+}) 
+}
+else if(val.constructor.name=="Object"){
+    for(key in val)
+{
+if((val[key] instanceof Object) || (val[key] instanceof Array))
+        {
+parseArrayflat(val[key]);
+        }else{
+b.push(val[key]);
+        }
+}
+}
+else b.push(val);
+}
+a.forEach(function(val,i){
+if((Array.isArray(val)) || (val instanceof Object) ){
+parseArrayflat(val);
+}
+else{
+b.push(val);
+}
+});
+console.log("Flat array is----", b);
